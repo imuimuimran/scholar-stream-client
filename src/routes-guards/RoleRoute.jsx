@@ -1,0 +1,5 @@
+<RoleRoute
+    allowedRoles={
+        ["Moderator", "Admin"]
+    }
+/>
