@@ -30,6 +30,14 @@ const router = createBrowserRouter([
           </RoleRoute>
         ),
       },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "/payment-cancel",
+        element: <PaymentCancel />,
+      }
     ],
   },
 ]);
