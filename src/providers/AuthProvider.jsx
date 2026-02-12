@@ -5,7 +5,8 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
-import { createContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createContext, useEffect, useState, useContext } from "react";
 import axios from "../api/axiosSecure";
 import { auth } from "../firebase/firebase.config";
 
@@ -15,12 +16,9 @@ const provider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [dbUser, setDbUser] = useState(null); // contains role
+  const [dbUser, setDbUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* ===============================
-     Exchange Firebase -> Server JWT
-  =============================== */
   const getServerToken = async (firebaseUser) => {
     const idToken = await firebaseUser.getIdToken();
 
@@ -28,9 +26,7 @@ const AuthProvider = ({ children }) => {
       "/api/auth/firebase",
       {},
       {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
+        headers: { Authorization: `Bearer ${idToken}` },
       }
     );
 
@@ -38,9 +34,6 @@ const AuthProvider = ({ children }) => {
     setDbUser(res.data.user);
   };
 
-  /* ===============================
-     Firebase listener (AUTO LOGIN)
-  =============================== */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
@@ -51,18 +44,17 @@ const AuthProvider = ({ children }) => {
         setDbUser(null);
         localStorage.removeItem("access-token");
       }
-
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  /* ===============================
-     Login Methods
-  =============================== */
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
+
+  const signup = (email, password) =>
+  createUserWithEmailAndPassword(auth, email, password);
 
   const googleLogin = () => signInWithPopup(auth, provider);
 
@@ -77,6 +69,7 @@ const AuthProvider = ({ children }) => {
     role: dbUser?.role,
     loading,
     login,
+    signup,
     googleLogin,
     logout,
   };
@@ -87,5 +80,7 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider;

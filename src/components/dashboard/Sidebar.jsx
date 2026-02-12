@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../../provider/AuthProvider";
+import { NavLink } from "react-router-dom"; 
+import { useAuth } from "../../providers/AuthProvider";
+
 
 const Sidebar = () => {
-  const { userRole } = useAuth(); // Student | Moderator | Admin
+  const { role } = useAuth(); // Student | Moderator | Admin
 
   const linkClass =
     "block px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition";
@@ -28,7 +29,7 @@ const Sidebar = () => {
         </NavLink>
 
         {/* ================= STUDENT ================= */}
-        {userRole === "Student" && (
+        {role === "Student" && (
           <>
             <NavLink to="/dashboard/my-applications" className={linkClass}>
               My Applications
@@ -41,7 +42,7 @@ const Sidebar = () => {
         )}
 
         {/* ================= MODERATOR ================= */}
-        {userRole === "Moderator" && (
+        {role === "Moderator" && (
           <>
             <NavLink to="/dashboard/manage-applications" className={linkClass}>
               Manage Applications
@@ -54,7 +55,7 @@ const Sidebar = () => {
         )}
 
         {/* ================= ADMIN ================= */}
-        {userRole === "Admin" && (
+        {role === "Admin" && (
           <>
             <NavLink to="/dashboard/add-scholarship" className={linkClass}>
               Add Scholarship

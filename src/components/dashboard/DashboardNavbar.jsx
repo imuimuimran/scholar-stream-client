@@ -1,4 +1,4 @@
-import { useAuth } from "../../provider/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 
 const DashboardNavbar = () => {
   const { user, logout } = useAuth();
