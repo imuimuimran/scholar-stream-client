@@ -1,0 +1,90 @@
+import { Link } from "react-router-dom";
+import axios from "../../../api/axiosSecure";
+
+const ApplicationRow = ({ app, refetch }) => {
+  const {
+    _id,
+    universityName,
+    subject,
+    applicationFees,
+    status,
+    paymentStatus,
+    feedback,
+    scholarshipId,
+  } = app;
+
+  /* ================= DELETE ================= */
+  const handleDelete = async () => {
+    if (!confirm("Delete application?")) return;
+
+    await axios.delete(`/api/applications/${_id}`);
+    refetch();
+  };
+
+  return (
+    <tr>
+      <td>{universityName}</td>
+
+      <td>{subject}</td>
+
+      <td>${applicationFees}</td>
+
+      <td>
+        <span className="badge badge-info">{status}</span>
+      </td>
+
+      <td>
+        <span
+          className={`badge ${
+            paymentStatus === "paid"
+              ? "badge-success"
+              : "badge-warning"
+          }`}
+        >
+          {paymentStatus}
+        </span>
+      </td>
+
+      <td className="max-w-[160px] truncate">
+        {feedback || "-"}
+      </td>
+
+      <td className="space-x-2">
+
+        {/* PAY */}
+        {status === "pending" && paymentStatus === "unpaid" && (
+          <Link
+            to={`/dashboard/payment/${scholarshipId}`}
+            className="btn btn-xs btn-primary"
+          >
+            Pay
+          </Link>
+        )}
+
+        {/* EDIT */}
+        {status === "pending" && (
+          <button className="btn btn-xs">Edit</button>
+        )}
+
+        {/* DELETE */}
+        {status === "pending" && (
+          <button
+            onClick={handleDelete}
+            className="btn btn-xs btn-error"
+          >
+            Delete
+          </button>
+        )}
+
+        {/* REVIEW */}
+        {status === "completed" && (
+          <button className="btn btn-xs btn-success">
+            Add Review
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+};
+
+export default ApplicationRow;

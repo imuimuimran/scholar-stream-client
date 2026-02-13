@@ -25,6 +25,9 @@ import PaymentFailed from "../pages/payment/PaymentFailed";
 import PaymentAccept from "../pages/PaymentAccept";
 import PaymentCancel from "../pages/PaymentCancel";
 
+import MyApplications from "../pages/dashboard/student/MyApplications";
+
+
 
 
 const router = createBrowserRouter([
@@ -38,7 +41,7 @@ const router = createBrowserRouter([
       { path: "scholarship/:id", element: <ScholarshipDetails /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "payment/:id", element: <PaymentPage />}
+      { path: "payment/:id", element: <PaymentPage /> }
     ],
   },
   /* ================= DASHBOARD ================= */
@@ -60,6 +63,10 @@ const router = createBrowserRouter([
           </RoleRoute>
         ),
       },
+      {
+        path: "applications",
+        element: <MyApplications />
+      }
     ],
   },
   /* ================= 404 ================= */
