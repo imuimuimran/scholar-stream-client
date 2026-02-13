@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Register() {
   const { signup, googleLogin } = useAuth(); // firebase login functions
@@ -79,17 +80,15 @@ export default function Register() {
           </button>
         </form>
 
+        <div className="divider">OR</div>
+
         <button
           onClick={handleGoogleLogin}
           disabled={loading}
-          className="mt-4 w-full border py-2 rounded flex justify-center items-center gap-2 hover:bg-gray-100 transition"
+          className="btn btn-outline w-full flex items-center gap-2"
         >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          {loading ? "Loading..." : "Register with Google"}
+          <FcGoogle size={20} />
+          Continue with Google
         </button>
 
         <p className="text-sm mt-4 text-center">

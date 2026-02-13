@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import { FcGoogle } from "react-icons/fc";
+
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -37,6 +39,16 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await googleLogin();
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -72,6 +84,16 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <div className="divider">OR</div>
+
+        <button
+          onClick={handleGoogleLogin}
+          className="btn btn-outline w-full flex items-center gap-2"
+        >
+          <FcGoogle size={20} />
+          Continue with Google
+        </button>
 
         <p className="text-sm mt-4 text-center">
           Don’t have an account?{" "}
