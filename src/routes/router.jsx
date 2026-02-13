@@ -9,7 +9,7 @@ import MainLayout from "../layouts/MainLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 import Home from "../pages/home/Home";
-// import AllScholarships from "../pages/scholarships/AllScholarships";
+import AllScholarships from "../pages/scholarships/AllScholarships";
 // import ScholarshipDetails from "../pages/scholarships/ScholarshipDetails";
 
 import DashboardHome from "../pages/dashboard/DashboardHome";
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
-      // { path: "scholarships", element: <AllScholarships /> },
+      { path: "scholarships", element: <AllScholarships /> },
       // { path: "scholarship/:id", element: <ScholarshipDetails /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
