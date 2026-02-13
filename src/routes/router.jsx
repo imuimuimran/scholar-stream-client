@@ -38,6 +38,7 @@ const router = createBrowserRouter([
       { path: "scholarship/:id", element: <ScholarshipDetails /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+      { path: "payment/:id", element: <PaymentPage />}
     ],
   },
   /* ================= DASHBOARD ================= */

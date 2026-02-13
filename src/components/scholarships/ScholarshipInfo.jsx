@@ -15,9 +15,9 @@ const ScholarshipInfo = ({ scholarship }) => {
         <p className="text-lg opacity-80">{scholarship.universityName}</p>
 
         <div className="grid md:grid-cols-3 gap-4 mt-4 text-sm">
-          <p>📍 {scholarship.country}</p>
-          <p>🎓 {scholarship.category}</p>
-          <p>💵 Fee: ${scholarship.applicationFees}</p>
+          <p>{scholarship.country}</p>
+          <p>{scholarship.category}</p>
+          <p>Fee: ${scholarship.applicationFees}</p>
         </div>
 
         <p className="mt-4">{scholarship.description}</p>
