@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import axios from "../../../api/axiosSecure";
+import { useState } from "react";
+import ReviewModal from "./ReviewModal";
 
 const ApplicationRow = ({ app, refetch }) => {
   const {
@@ -21,6 +23,8 @@ const ApplicationRow = ({ app, refetch }) => {
     refetch();
   };
 
+  const [openReview, setOpenReview] = useState(false);
+
   return (
     <tr>
       <td>{universityName}</td>
@@ -35,11 +39,10 @@ const ApplicationRow = ({ app, refetch }) => {
 
       <td>
         <span
-          className={`badge ${
-            paymentStatus === "paid"
+          className={`badge ${paymentStatus === "paid"
               ? "badge-success"
               : "badge-warning"
-          }`}
+            }`}
         >
           {paymentStatus}
         </span>
@@ -77,11 +80,31 @@ const ApplicationRow = ({ app, refetch }) => {
         )}
 
         {/* REVIEW */}
-        {status === "completed" && (
+        {/* {status === "completed" && (
           <button className="btn btn-xs btn-success">
             Add Review
           </button>
+        )} */}
+
+        {status === "completed" && (
+          <>
+            <button
+              onClick={() => setOpenReview(true)}
+              className="btn btn-xs btn-success"
+            >
+              Add Review
+            </button>
+
+            {openReview && (
+              <ReviewModal
+                application={app}
+                onClose={() => setOpenReview(false)}
+              />
+            )}
+          </>
         )}
+
+
       </td>
     </tr>
   );
