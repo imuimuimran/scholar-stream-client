@@ -10,7 +10,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 
 import Home from "../pages/home/Home";
 import AllScholarships from "../pages/scholarships/AllScholarships";
-// import ScholarshipDetails from "../pages/scholarships/ScholarshipDetails";
+import ScholarshipDetails from "../pages/scholarships/ScholarshipDetails";
 
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import ManageUsers from "../pages/dashboard/ManageUsers";
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       { path: "scholarship/:id", element: <ScholarshipDetails /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "payment/:id", element: <PaymentPage /> }
+      { path: "payment/:id", element: <checkout /> }
     ],
   },
   /* ================= DASHBOARD ================= */
