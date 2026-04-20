@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import DashboardNavbar from "../components/dashboard/DashboardNavbar";
 
+
 const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
