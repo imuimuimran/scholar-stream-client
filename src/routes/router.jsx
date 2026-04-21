@@ -26,6 +26,7 @@ import PaymentAccept from "../pages/PaymentAccept";
 import PaymentCancel from "../pages/PaymentCancel";
 
 import MyApplications from "../pages/dashboard/student/MyApplications";
+import Analytics from "../pages/dashboard/Analytics";
 
 
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "applications",
         element: <MyApplications />
+      },
+      {
+        path: "analytics",
+        element: <Analytics />
       }
     ],
   },

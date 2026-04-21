@@ -17,14 +17,19 @@ const Navbar = () => {
       </div>
 
       {/* Center */}
-      <div className="hidden md:flex gap-6">
-        <NavLink to="/" className={navLinkClass}>
-          Home
-        </NavLink>
-
-        <NavLink to="/scholarships" className={navLinkClass}>
-          All Scholarships
-        </NavLink>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 gap-4">
+          <li>
+            <NavLink to="/" className={navLinkClass}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/scholarships" className={navLinkClass}>
+              All Scholarships
+            </NavLink>
+          </li>
+        </ul>
       </div>
 
       {/* Right */}

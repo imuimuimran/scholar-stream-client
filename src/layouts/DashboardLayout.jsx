@@ -1,23 +1,50 @@
+// import { Outlet } from "react-router-dom";
+// import Sidebar from "../components/dashboard/Sidebar";
+// import DashboardNavbar from "../components/dashboard/DashboardNavbar";
+
+
+// const DashboardLayout = () => {
+//   return (
+//     <div className="drawer lg:drawer-open">
+//       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+
+//       {/* Page Content */}
+//       <div className="drawer-content flex flex-col bg-base-200 min-h-screen">
+//         <DashboardNavbar />
+//         <div className="p-6">
+//           <Outlet />
+//         </div>
+//       </div>
+
+//       {/* Sidebar */}
+//       <Sidebar />
+//     </div>
+//   );
+// };
+
+// export default DashboardLayout;
+
+
+
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import DashboardNavbar from "../components/dashboard/DashboardNavbar";
 
-
 const DashboardLayout = () => {
   return (
-    <div className="drawer lg:drawer-open">
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+    <div className="flex min-h-screen bg-base-200">
+      
+      {/* Sidebar */}
+      <Sidebar />
 
-      {/* Page Content */}
-      <div className="drawer-content flex flex-col bg-base-200 min-h-screen">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
         <DashboardNavbar />
-        <div className="p-6">
+
+        <div className="p-4 md:p-6">
           <Outlet />
         </div>
       </div>
-
-      {/* Sidebar */}
-      <Sidebar />
     </div>
   );
 };
