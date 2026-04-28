@@ -28,6 +28,7 @@ import PaymentCancel from "../pages/PaymentCancel";
 import MyApplications from "../pages/dashboard/student/MyApplications";
 import Analytics from "../pages/dashboard/Analytics";
 
+import ManageScholarships from "../pages/dashboard/admin/ManageScholarships";
 
 
 
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "analytics",
         element: <Analytics />
+      },
+      {
+        path: "manage-scholarships",
+        element: <ManageScholarships />
       }
     ],
   },
