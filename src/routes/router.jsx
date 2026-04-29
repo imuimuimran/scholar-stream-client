@@ -30,6 +30,7 @@ import Analytics from "../pages/dashboard/Analytics";
 
 import ManageScholarships from "../pages/dashboard/admin/ManageScholarships";
 import ManageApplications from "../pages/dashboard/moderator/ManageApplications";
+import MyReviews from "../pages/dashboard/student/MyReviews";
 
 
 const router = createBrowserRouter([
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "manage-scholarships",
         element: <ManageScholarships />
+      },
+      {
+        path: "my-reviews",
+        element: <MyReviews />,
       }
     ],
   },
