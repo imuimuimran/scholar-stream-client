@@ -29,7 +29,7 @@ import MyApplications from "../pages/dashboard/student/MyApplications";
 import Analytics from "../pages/dashboard/Analytics";
 
 import ManageScholarships from "../pages/dashboard/admin/ManageScholarships";
-
+import ManageApplications from "../pages/dashboard/moderator/ManageApplications";
 
 
 const router = createBrowserRouter([
@@ -62,6 +62,14 @@ const router = createBrowserRouter([
         element: (
           <RoleRoute allowedRoles={["Admin"]}>
             <ManageUsers />
+          </RoleRoute>
+        ),
+      },
+      {
+        path: "manage-applications",
+        element: (
+          <RoleRoute allowedRoles={["Moderator", "Admin"]}>
+            <ManageApplications />
           </RoleRoute>
         ),
       },
