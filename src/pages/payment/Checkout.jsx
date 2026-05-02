@@ -8,11 +8,19 @@ const Checkout = ({ amount, applicationData }) => {
 
   const [clientSecret, setClientSecret] = useState("");
 
+  // useEffect(() => {
+  //   axios
+  //     .post("/api/payments/create-payment-intent", { amount })
+  //     .then((res) => setClientSecret(res.data.clientSecret));
+  // }, [amount]);
+
   useEffect(() => {
     axios
-      .post("/api/payments/create-payment-intent", { amount })
+      .post("/api/payments/create-payment-intent", {
+        scholarshipId: applicationData.scholarshipId,
+      })
       .then((res) => setClientSecret(res.data.clientSecret));
-  }, [amount]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,10 +43,9 @@ const Checkout = ({ amount, applicationData }) => {
 
     if (paymentIntent.status === "succeeded") {
       // save application with paymentStatus: paid
-      await axios.post("/api/applications", {
-        ...applicationData,
-        paymentStatus: "paid",
-      });
+      if (paymentIntent.status === "succeeded") {
+        window.location.href = "/payment-success";
+      }
 
       window.location.href = "/payment-success";
     }
