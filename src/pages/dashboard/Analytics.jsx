@@ -15,13 +15,15 @@ import {
 const Analytics = () => {
 
   /* ================= SUMMARY ================= */
-  const { data: summary, isLoading } = useQuery({
+  const { data: summary, isLoading, isError } = useQuery({
     queryKey: ["analytics-summary"],
     queryFn: async () => {
       const res = await axios.get("/api/analytics/summary");
       return res.data;
     },
   });
+
+  
 
   /* ================= CATEGORY ================= */
   const { data: categoryData } = useQuery({
@@ -52,6 +54,14 @@ const Analytics = () => {
 
   if (isLoading) {
     return <span className="loading loading-spinner"></span>;
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center py-20 text-error">
+        Access Denied
+      </div>
+    );
   }
 
   return (

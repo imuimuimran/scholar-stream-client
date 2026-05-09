@@ -8,12 +8,6 @@ const Checkout = ({ amount, applicationData }) => {
 
   const [clientSecret, setClientSecret] = useState("");
 
-  // useEffect(() => {
-  //   axios
-  //     .post("/api/payments/create-payment-intent", { amount })
-  //     .then((res) => setClientSecret(res.data.clientSecret));
-  // }, [amount]);
-
   useEffect(() => {
     axios
       .post("/api/payments/create-payment-intent", {

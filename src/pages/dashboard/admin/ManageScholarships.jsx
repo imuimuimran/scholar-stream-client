@@ -2,42 +2,71 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "../../../api/axiosSecure";
 
+const initialForm = {
+  scholarshipName: "",
+  universityName: "",
+  universityImage: "",
+  universityCountry: "",
+  universityCity: "",
+  universityWorldRank: "",
+  subjectCategory: "",
+  scholarshipCategory: "",
+  degree: "",
+  tuitionFees: "",
+  applicationFees: "",
+  serviceCharge: "",
+  applicationDeadline: "",
+  description: "",
+  stipendDetails: "",
+};
+
 const ManageScholarships = () => {
   const queryClient = useQueryClient();
 
   const [selected, setSelected] = useState(null);
-  const [formData, setFormData] = useState({
-    scholarshipName: "",
-    universityName: "",
-    universityImage: "",
-    country: "",
-    category: "",
-    applicationFees: "",
-  });
+  const [formData, setFormData] = useState(initialForm);
 
   /* ================= FETCH ================= */
+
   const { data = [], isLoading } = useQuery({
     queryKey: ["scholarships"],
     queryFn: async () => {
       const res = await axios.get("/api/scholarships");
-      return res.data.data || res.data;
+      return res.data.data || [];
     },
   });
 
   /* ================= CREATE ================= */
+
   const createMutation = useMutation({
-    mutationFn: (newData) =>
-      axios.post("/api/scholarships", newData),
+    mutationFn: async (newData) => {
+      const res = await axios.post("/api/scholarships", newData);
+      return res.data;
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(["scholarships"]);
       closeModal();
     },
+
+    onError: (err) => {
+      console.log(err.response?.data || err.message);
+      alert("Create failed");
+    },
   });
 
   /* ================= UPDATE ================= */
+
   const updateMutation = useMutation({
-    mutationFn: ({ id, updatedData }) =>
-      axios.patch(`/api/scholarships/${id}`, updatedData),
+    mutationFn: async ({ id, updatedData }) => {
+      const res = await axios.patch(
+        `/api/scholarships/${id}`,
+        updatedData
+      );
+
+      return res.data;
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(["scholarships"]);
       closeModal();
@@ -45,31 +74,47 @@ const ManageScholarships = () => {
   });
 
   /* ================= DELETE ================= */
+
   const deleteMutation = useMutation({
-    mutationFn: (id) =>
-      axios.delete(`/api/scholarships/${id}`),
+    mutationFn: async (id) => {
+      const res = await axios.delete(`/api/scholarships/${id}`);
+      return res.data;
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(["scholarships"]);
     },
   });
 
   /* ================= HANDLERS ================= */
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const openCreate = () => {
     setSelected(null);
-    setFormData({
-      scholarshipName: "",
-      universityName: "",
-      universityImage: "",
-      country: "",
-      category: "",
-      applicationFees: "",
-    });
+    setFormData(initialForm);
+
     document.getElementById("scholarship_modal").showModal();
   };
 
   const openEdit = (sch) => {
     setSelected(sch);
-    setFormData(sch);
+
+    setFormData({
+      ...initialForm,
+      ...sch,
+      applicationDeadline: sch.applicationDeadline
+        ? sch.applicationDeadline.split("T")[0]
+        : "",
+    });
+
     document.getElementById("scholarship_modal").showModal();
   };
 
@@ -80,63 +125,102 @@ const ManageScholarships = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const payload = {
+      ...formData,
+
+      universityWorldRank: Number(formData.universityWorldRank),
+
+      tuitionFees: Number(formData.tuitionFees),
+
+      applicationFees: Number(formData.applicationFees),
+
+      serviceCharge: Number(formData.serviceCharge),
+    };
+
+    console.log(payload);
+
     if (selected) {
       updateMutation.mutate({
         id: selected._id,
-        updatedData: formData,
+        updatedData: payload,
       });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(payload);
     }
   };
 
   const handleDelete = (id) => {
-    if (confirm("Are you sure?")) {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete?"
+    );
+
+    if (confirmDelete) {
       deleteMutation.mutate(id);
     }
   };
 
-  /* ================= UI ================= */
+  /* ================= LOADING ================= */
+
   if (isLoading) {
-    return <span className="loading loading-spinner"></span>;
+    return (
+      <div className="flex justify-center py-20">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
   }
 
   return (
     <div>
 
       {/* HEADER */}
+
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-3xl font-bold">
           Manage Scholarships
         </h1>
 
-        <button onClick={openCreate} className="btn btn-primary">
+        <button
+          onClick={openCreate}
+          className="btn btn-primary"
+        >
           + Add Scholarship
         </button>
       </div>
 
       {/* TABLE */}
+
       <div className="overflow-x-auto bg-base-100 rounded-xl shadow">
+
         <table className="table">
+
           <thead>
             <tr>
               <th>University</th>
-              <th>Category</th>
               <th>Country</th>
+              <th>Category</th>
+              <th>Degree</th>
               <th>Fees</th>
               <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
+
             {data.map((sch) => (
               <tr key={sch._id}>
+
                 <td>{sch.universityName}</td>
-                <td>{sch.category}</td>
-                <td>{sch.country}</td>
+
+                <td>{sch.universityCountry}</td>
+
+                <td>{sch.scholarshipCategory}</td>
+
+                <td>{sch.degree}</td>
+
                 <td>${sch.applicationFees}</td>
 
                 <td className="space-x-2">
+
                   <button
                     onClick={() => openEdit(sch)}
                     className="btn btn-sm btn-info"
@@ -150,105 +234,178 @@ const ManageScholarships = () => {
                   >
                     Delete
                   </button>
+
                 </td>
               </tr>
             ))}
+
           </tbody>
+
         </table>
+
       </div>
 
       {/* MODAL */}
+
       <dialog id="scholarship_modal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg mb-4">
-            {selected ? "Update Scholarship" : "Add Scholarship"}
+
+        <div className="modal-box max-w-3xl">
+
+          <h3 className="font-bold text-2xl mb-5">
+            {selected
+              ? "Update Scholarship"
+              : "Add Scholarship"}
           </h3>
 
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <form
+            onSubmit={handleSubmit}
+            className="grid md:grid-cols-2 gap-4"
+          >
 
             <input
-              className="input input-bordered w-full"
-              placeholder="Scholarship Name"
+              name="scholarshipName"
               value={formData.scholarshipName}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  scholarshipName: e.target.value,
-                })
-              }
+              onChange={handleChange}
+              placeholder="Scholarship Name"
+              className="input input-bordered w-full"
               required
             />
 
             <input
-              className="input input-bordered w-full"
-              placeholder="University Name"
+              name="universityName"
               value={formData.universityName}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  universityName: e.target.value,
-                })
-              }
+              onChange={handleChange}
+              placeholder="University Name"
+              className="input input-bordered w-full"
               required
             />
 
             <input
-              className="input input-bordered w-full"
-              placeholder="Image URL"
+              name="universityImage"
               value={formData.universityImage}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  universityImage: e.target.value,
-                })
-              }
+              onChange={handleChange}
+              placeholder="University Image URL"
+              className="input input-bordered w-full"
+              required
             />
 
             <input
+              name="universityCountry"
+              value={formData.universityCountry}
+              onChange={handleChange}
+              placeholder="University Country"
               className="input input-bordered w-full"
-              placeholder="Country"
-              value={formData.country}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  country: e.target.value,
-                })
-              }
+              required
+            />
+
+            <input
+              name="universityCity"
+              value={formData.universityCity}
+              onChange={handleChange}
+              placeholder="University City"
+              className="input input-bordered w-full"
+              required
+            />
+
+            <input
+              type="number"
+              name="universityWorldRank"
+              value={formData.universityWorldRank}
+              onChange={handleChange}
+              placeholder="World Rank"
+              className="input input-bordered w-full"
+              required
+            />
+
+            <input
+              name="subjectCategory"
+              value={formData.subjectCategory}
+              onChange={handleChange}
+              placeholder="Subject Category"
+              className="input input-bordered w-full"
+              required
             />
 
             <select
+              name="scholarshipCategory"
+              value={formData.scholarshipCategory}
+              onChange={handleChange}
               className="select select-bordered w-full"
-              value={formData.category}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  category: e.target.value,
-                })
-              }
+              required
             >
               <option value="">Select Category</option>
-              <option>Full Funded</option>
-              <option>Partial</option>
-              <option>Self Funded</option>
+              <option value="Full fund">Full fund</option>
+              <option value="Partial">Partial</option>
+              <option value="Self-fund">Self-fund</option>
+            </select>
+
+            <select
+              name="degree"
+              value={formData.degree}
+              onChange={handleChange}
+              className="select select-bordered w-full"
+              required
+            >
+              <option value="">Select Degree</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Bachelor">Bachelor</option>
+              <option value="Masters">Masters</option>
             </select>
 
             <input
               type="number"
+              name="tuitionFees"
+              value={formData.tuitionFees}
+              onChange={handleChange}
+              placeholder="Tuition Fees"
               className="input input-bordered w-full"
-              placeholder="Application Fees"
-              value={formData.applicationFees}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  applicationFees: e.target.value,
-                })
-              }
             />
 
-            <div className="modal-action">
-              <button type="submit" className="btn btn-primary">
-                {selected ? "Update" : "Create"}
-              </button>
+            <input
+              type="number"
+              name="applicationFees"
+              value={formData.applicationFees}
+              onChange={handleChange}
+              placeholder="Application Fees"
+              className="input input-bordered w-full"
+              required
+            />
+
+            <input
+              type="number"
+              name="serviceCharge"
+              value={formData.serviceCharge}
+              onChange={handleChange}
+              placeholder="Service Charge"
+              className="input input-bordered w-full"
+            />
+
+            <input
+              type="date"
+              name="applicationDeadline"
+              value={formData.applicationDeadline}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Description"
+              className="textarea textarea-bordered md:col-span-2"
+            />
+
+            <textarea
+              name="stipendDetails"
+              value={formData.stipendDetails}
+              onChange={handleChange}
+              placeholder="Stipend Details"
+              className="textarea textarea-bordered md:col-span-2"
+            />
+
+            <div className="md:col-span-2 flex justify-end gap-3 mt-4">
 
               <button
                 type="button"
@@ -257,10 +414,22 @@ const ManageScholarships = () => {
               >
                 Cancel
               </button>
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+              >
+                {selected ? "Update" : "Create"}
+              </button>
+
             </div>
+
           </form>
+
         </div>
+
       </dialog>
+
     </div>
   );
 };

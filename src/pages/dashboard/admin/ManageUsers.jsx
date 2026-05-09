@@ -6,15 +6,6 @@ const ManageUsers = () => {
 
     const [role, setRole] = useState("");
 
-    /* ================= FETCH USERS ================= */
-    //   const { data: users = [], isLoading } = useQuery({
-    //     queryKey: ["users"],
-    //     queryFn: async () => {
-    //       const res = await axios.get("/api/users");
-    //       return res.data;
-    //     },
-    //   });
-
     const { data: users = [], isLoading } = useQuery({
         queryKey: ["users", role],
         queryFn: async () => {

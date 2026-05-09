@@ -19,3 +19,5 @@ const handleCheckout = async () => {
 
   window.location.href = res.data.url;
 };
+
+export default handleCheckout;

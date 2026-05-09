@@ -1,44 +1,93 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "../../api/axiosSecure";
+import axiosSecure from "../../api/axiosSecure";
+import { useAuth } from "../../providers/AuthProvider";
 
 const DashboardHome = () => {
-  const { data = {}, isLoading, isError } = useQuery({
+  const { dbUser, loading } = useAuth();
+
+  const isAdmin = dbUser?.role === "Admin";
+
+  const {
+    data = {},
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["analytics-summary"],
+    enabled: !loading && isAdmin, // ✅ ONLY ADMIN
     queryFn: async () => {
-      const res = await axios.get("/api/analytics/summary");
+      const res = await axiosSecure.get("/api/analytics/summary");
       return res.data;
     },
   });
 
+  if (loading) {
+    return <span className="loading loading-spinner"></span>;
+  }
+
+  /* =========================
+     NON-ADMIN DASHBOARD
+  ========================= */
+  if (!isAdmin) {
+    return (
+      <div className="text-center py-10">
+        <h2 className="text-2xl font-bold">
+          Welcome {dbUser?.name}
+        </h2>
+
+        <p className="text-gray-500 mt-2">
+          Student Dashboard
+        </p>
+      </div>
+    );
+  }
+
+  /* =========================
+     ADMIN LOADING
+  ========================= */
   if (isLoading) {
     return <span className="loading loading-spinner"></span>;
   }
 
+  /* =========================
+     ADMIN ERROR
+  ========================= */
   if (isError) {
-  return <p className="text-red-500">Failed to load data</p>;
-}
+    return (
+      <p className="text-red-500">
+        Failed to load admin analytics
+      </p>
+    );
+  }
 
+  /* =========================
+     ADMIN DASHBOARD
+  ========================= */
   return (
     <div className="grid md:grid-cols-3 gap-6">
-
       <div className="card bg-primary text-white shadow">
         <div className="card-body">
           <h2 className="text-lg">Total Users</h2>
-          <p className="text-3xl font-bold">{data.totalUsers || 0}</p>
+          <p className="text-3xl font-bold">
+            {data.totalUsers || 0}
+          </p>
         </div>
       </div>
 
       <div className="card bg-secondary text-white shadow">
         <div className="card-body">
           <h2 className="text-lg">Total Applications</h2>
-          <p className="text-3xl font-bold">{data.totalApplications || 0}</p>
+          <p className="text-3xl font-bold">
+            {data.totalApplications || 0}
+          </p>
         </div>
       </div>
 
       <div className="card bg-accent text-white shadow">
         <div className="card-body">
           <h2 className="text-lg">Total Revenue</h2>
-          <p className="text-3xl font-bold">${data.totalRevenue || 0}</p>
+          <p className="text-3xl font-bold">
+            ${data.totalRevenue || 0}
+          </p>
         </div>
       </div>
     </div>

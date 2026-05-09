@@ -24,7 +24,9 @@ const MyReviews = () => {
       await axios.patch(`/api/reviews/${data.id}`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["my-reviews"]);
+      queryClient.invalidateQueries({
+        queryKey: ["my-reviews"],
+      });
       setEditReview(null);
     },
   });
@@ -35,7 +37,9 @@ const MyReviews = () => {
       await axios.delete(`/api/reviews/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["my-reviews"]);
+      queryClient.invalidateQueries({
+        queryKey: ["my-reviews"],
+      });
     },
   });
 

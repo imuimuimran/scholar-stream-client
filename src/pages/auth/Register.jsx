@@ -5,7 +5,12 @@ import { FcGoogle } from "react-icons/fc";
 
 export default function Register() {
   const { signup, googleLogin } = useAuth(); // firebase login functions
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({
+    name: "",
+    photoURL: "",
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -21,8 +26,13 @@ export default function Register() {
       setLoading(true);
 
       // Firebase email/password signup
-      
-      await signup(form.email, form.password); 
+
+      await signup(
+        form.email,
+        form.password,
+        form.name,
+        form.photoURL
+      );
 
       // redirect after successful register
       navigate("/dashboard", { replace: true });
@@ -51,6 +61,25 @@ export default function Register() {
         <h2 className="text-2xl font-semibold mb-6 text-center">Register</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+            required
+          />
+
+          <input
+            type="text"
+            name="photoURL"
+            placeholder="Photo URL"
+            value={form.photoURL}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+          />
+
           <input
             type="email"
             name="email"

@@ -57,7 +57,7 @@ const ApplicationRow = ({ app, refetch }) => {
         {/* PAY */}
         {status === "pending" && paymentStatus === "unpaid" && (
           <Link
-            to={`/dashboard/payment/${scholarshipId}`}
+            to={`/checkout/${scholarshipId}`}
             className="btn btn-xs btn-primary"
           >
             Pay

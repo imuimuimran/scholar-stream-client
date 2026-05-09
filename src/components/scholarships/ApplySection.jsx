@@ -6,20 +6,43 @@ const ApplySection = ({ scholarship }) => {
   const navigate = useNavigate();
 
   const handleApply = () => {
-    if (!user) return navigate("/login");
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
-    navigate(`/dashboard/payment/${scholarship._id}`);
+    // TEMPORARY ROUTE
+    navigate(`/dashboard/apply/${scholarship._id}`);
   };
 
   return (
     <div className="card bg-base-100 shadow p-6">
-      <h2 className="text-xl font-semibold mb-3">Apply Now</h2>
+      <h2 className="text-xl font-semibold mb-3">
+        Apply Now
+      </h2>
 
-      <p className="mb-4">
-        Application Fee: <strong>${scholarship.applicationFees}</strong>
-      </p>
+      <div className="space-y-2 mb-5">
+        <p>
+          <strong>Application Fee:</strong> $
+          {scholarship.applicationFees}
+        </p>
 
-      <button onClick={handleApply} className="btn btn-primary">
+        <p>
+          <strong>Degree:</strong> {scholarship.degree}
+        </p>
+
+        <p>
+          <strong>Deadline:</strong>{" "}
+          {new Date(
+            scholarship.applicationDeadline
+          ).toLocaleDateString()}
+        </p>
+      </div>
+
+      <button
+        onClick={handleApply}
+        className="btn btn-primary"
+      >
         Apply & Pay
       </button>
     </div>

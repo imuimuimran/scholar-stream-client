@@ -19,7 +19,9 @@ const ReviewModal = ({ application, onClose }) => {
       return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["myApplications"]);
+      queryClient.invalidateQueries({
+        queryKey: ["myApplications"],
+      });
       onClose();
     },
   });

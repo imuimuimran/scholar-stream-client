@@ -4,10 +4,12 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { createContext, useEffect, useState, useContext } from "react";
-import axios from "../api/axiosSecure";
+// import axios from "../api/axiosSecure";
+import axios from "axios";
 import { auth } from "../firebase/firebase.config";
 
 export const AuthContext = createContext();
@@ -20,13 +22,16 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const getServerToken = async (firebaseUser) => {
-    const idToken = await firebaseUser.getIdToken();
+    // const idToken = await firebaseUser.getIdToken();
+    const idToken = await firebaseUser.getIdToken(true);
 
     const res = await axios.post(
-      "/api/auth/firebase",
+      `${import.meta.env.VITE_SERVER_URL}/api/auth/firebase`,
       {},
       {
-        headers: { Authorization: `Bearer ${idToken}` },
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
       }
     );
 
@@ -36,15 +41,25 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        await getServerToken(currentUser);
-      } else {
+      try {
+        if (currentUser) {
+          setUser(currentUser);
+          await getServerToken(currentUser);
+        } else {
+          setUser(null);
+          setDbUser(null);
+          localStorage.removeItem("access-token");
+        }
+      } catch (err) {
+        console.error("Auth error:", err.message);
+
+        // 🔥 FIX: prevent infinite loading
         setUser(null);
         setDbUser(null);
         localStorage.removeItem("access-token");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return unsubscribe;
@@ -53,8 +68,20 @@ const AuthProvider = ({ children }) => {
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
 
-  const signup = (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
+  const signup = async (email, password, name, photoURL) => {
+    const result = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    await updateProfile(result.user, {
+      displayName: name,
+      photoURL,
+    });
+
+    return result;
+  };
 
   const googleLogin = () => signInWithPopup(auth, provider);
 

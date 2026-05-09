@@ -25,12 +25,16 @@ import PaymentFailed from "../pages/payment/PaymentFailed";
 import PaymentAccept from "../pages/PaymentAccept";
 import PaymentCancel from "../pages/PaymentCancel";
 
+import ApplyScholarship from "../pages/dashboard/student/ApplyScholarship";
 import MyApplications from "../pages/dashboard/student/MyApplications";
 import Analytics from "../pages/dashboard/Analytics";
 
 import ManageScholarships from "../pages/dashboard/admin/ManageScholarships";
 import ManageApplications from "../pages/dashboard/moderator/ManageApplications";
 import MyReviews from "../pages/dashboard/student/MyReviews";
+import PaymentHistory from "../pages/dashboard/student/PaymentHistory";
+
+import Profile from "../pages/dashboard/Profile";
 
 
 const router = createBrowserRouter([
@@ -38,13 +42,21 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <div>Page Not Found</div>,
     children: [
       { index: true, element: <Home /> },
       { path: "scholarships", element: <AllScholarships /> },
-      { path: "scholarship/:id", element: <ScholarshipDetails /> },
+      { path: "scholarships/:id", element: <ScholarshipDetails /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "payment/:id", element: <checkout /> }
+      {
+        path: "checkout/:id",
+        element: (
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   /* ================= DASHBOARD ================= */
@@ -79,8 +91,16 @@ const router = createBrowserRouter([
         element: <MyApplications />
       },
       {
+        path: "apply/:id",
+        element: <ApplyScholarship />,
+      },
+      {
         path: "analytics",
-        element: <Analytics />
+        element: (
+          <RoleRoute allowedRoles={["Admin"]}>
+            <Analytics />
+          </RoleRoute>
+        ),
       },
       {
         path: "manage-scholarships",
@@ -89,7 +109,11 @@ const router = createBrowserRouter([
       {
         path: "my-reviews",
         element: <MyReviews />,
-      }
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
     ],
   },
   /* ================= 404 ================= */
@@ -117,6 +141,10 @@ const router = createBrowserRouter([
   {
     path: "payment-failed",
     element: <PaymentFailed />
+  },
+  {
+    path: "payment-history",
+    element: <PaymentHistory />
   }
 ]);
 

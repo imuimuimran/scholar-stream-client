@@ -87,9 +87,9 @@ const AllScholarships = () => {
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="">All Categories</option>
-          <option>Full Funded</option>
-          <option>Partial</option>
-          <option>Self Funded</option>
+          <option value="Full fund">Full fund</option>
+          <option value="Partial">Partial</option>
+          <option value="Self-fund">Self-fund</option>
         </select>
 
         {/* Sort */}
@@ -125,8 +125,8 @@ const AllScholarships = () => {
               <p className="text-sm opacity-70">{sch.universityName}</p>
 
               <div className="text-sm mt-2 space-y-1">
-                <p>{sch.country}</p>
-                <p>{sch.category}</p>
+                <p>{sch.universityCountry}</p>
+                <p>{sch.scholarshipCategory}</p>
                 <p>Fee: ${sch.applicationFees}</p>
               </div>
 
