@@ -84,7 +84,7 @@ const MyReviews = () => {
                   </button>
 
                   <button
-                    className="btn btn-xs btn-error text-white"
+                    className="btn btn-xs btn-error text-red"
                     onClick={() => deleteMutation.mutate(rev._id)}
                   >
                     Delete

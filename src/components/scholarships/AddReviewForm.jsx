@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "../../api/axiosSecure";
 import { useAuth } from "../../providers/AuthProvider";
 
-const AddReviewForm = ({ scholarshipId }) => {
+const AddReviewForm = ({ scholarshipId, universityName, }) => {
   const { user } = useAuth();
 
   const queryClient = useQueryClient();
@@ -52,6 +52,7 @@ const AddReviewForm = ({ scholarshipId }) => {
 
     mutation.mutate({
       scholarshipId,
+      universityName,
       rating: Number(reviewData.rating),
       comment: reviewData.comment,
 

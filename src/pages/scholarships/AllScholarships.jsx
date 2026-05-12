@@ -31,7 +31,7 @@ const AllScholarships = () => {
 
       return res.data;
     },
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
   });
 
   const scholarships = data?.data || [];
@@ -61,8 +61,9 @@ const AllScholarships = () => {
         {/* Search */}
         <input
           type="text"
-          placeholder="Search name, university, degree..."
+          placeholder="Search scholarship or university..."
           className="input input-bordered w-full"
+          value={search}
           onChange={(e) => {
             setSearch(e.target.value);
             setPage(1);
@@ -72,13 +73,21 @@ const AllScholarships = () => {
         {/* Country */}
         <select
           className="select select-bordered"
-          onChange={(e) => setCountry(e.target.value)}
+          value={country}
+          onChange={(e) => {
+            setCountry(e.target.value);
+            setPage(1);
+          }}
         >
           <option value="">All Countries</option>
-          <option>USA</option>
-          <option>Canada</option>
-          <option>UK</option>
-          <option>Australia</option>
+
+          {[...new Set(scholarships.map((s) => s.country || s.universityCountry))]
+            .filter(Boolean)
+            .map((countryName) => (
+              <option key={countryName} value={countryName}>
+                {countryName}
+              </option>
+            ))}
         </select>
 
         {/* Category */}

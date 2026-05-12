@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 const Sidebar = () => {
@@ -7,7 +7,9 @@ const Sidebar = () => {
   return (
     <div className="w-64 bg-base-100 shadow-lg hidden md:block">
       <div className="p-4 text-xl font-bold text-primary">
-        Dashboard
+        <Link to="/">
+          ScholarStream
+        </Link>
       </div>
 
       <ul className="menu p-4 space-y-2">

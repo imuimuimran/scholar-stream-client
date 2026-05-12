@@ -31,7 +31,10 @@ const ScholarshipDetails = () => {
 
       <ReviewList scholarshipId={id} />
 
-      <AddReviewForm scholarshipId={id} />
+      <AddReviewForm
+        scholarshipId={scholarship._id}
+        universityName={scholarship.universityName}
+      />
     </section>
   );
 };

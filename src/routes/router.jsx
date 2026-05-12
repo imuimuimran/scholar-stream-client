@@ -25,7 +25,7 @@ import PaymentFailed from "../pages/payment/PaymentFailed";
 import PaymentAccept from "../pages/PaymentAccept";
 import PaymentCancel from "../pages/PaymentCancel";
 
-import ApplyScholarship from "../pages/dashboard/student/ApplyScholarship";
+// import ApplyScholarship from "../pages/dashboard/student/ApplyScholarship";
 import MyApplications from "../pages/dashboard/student/MyApplications";
 import Analytics from "../pages/dashboard/Analytics";
 
@@ -90,10 +90,10 @@ const router = createBrowserRouter([
         path: "applications",
         element: <MyApplications />
       },
-      {
-        path: "apply/:id",
-        element: <ApplyScholarship />,
-      },
+      // {
+      //   path: "apply/:id",
+      //   element: <ApplyScholarship />,
+      // },
       {
         path: "analytics",
         element: (
@@ -107,8 +107,12 @@ const router = createBrowserRouter([
         element: <ManageScholarships />
       },
       {
-        path: "my-reviews",
+        path: "reviews",
         element: <MyReviews />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
       },
       {
         path: "profile",
@@ -142,10 +146,6 @@ const router = createBrowserRouter([
     path: "payment-failed",
     element: <PaymentFailed />
   },
-  {
-    path: "payment-history",
-    element: <PaymentHistory />
-  }
 ]);
 
 export default router;

@@ -1,34 +1,94 @@
 import { useAuth } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axiosSecure";
 
 const ApplySection = ({ scholarship }) => {
+
   const { user } = useAuth();
+
   const navigate = useNavigate();
 
-  const handleApply = () => {
+  const handleApply = async () => {
+
+    // LOGIN CHECK
     if (!user) {
       navigate("/login");
       return;
     }
 
-    // TEMPORARY ROUTE
-    navigate(`/dashboard/apply/${scholarship._id}`);
+    try {
+
+      // CREATE APPLICATION
+      const applicationData = {
+        scholarshipId: scholarship._id,
+
+        userName: user.displayName,
+        userEmail: user.email,
+
+        universityName:
+          scholarship.universityName,
+
+        scholarshipCategory:
+          scholarship.scholarshipCategory,
+
+        degree: scholarship.degree,
+
+        applicationFees:
+          scholarship.applicationFees,
+
+        serviceCharge:
+          scholarship.serviceCharge || 0,
+
+        totalAmount:
+          scholarship.applicationFees +
+          (scholarship.serviceCharge || 0),
+
+        paymentStatus: "unpaid",
+      };
+
+      const res = await axios.post(
+        "/api/applications",
+        applicationData
+      );
+
+      /*
+        IMPORTANT:
+        Navigate using APPLICATION ID
+      */
+
+      navigate(
+        // `/checkout/${res.data.insertedId}`
+        `/checkout/${res.data._id}`
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        error?.response?.data?.message ||
+        "Failed to create application"
+      );
+    }
   };
 
   return (
     <div className="card bg-base-100 shadow p-6">
+
       <h2 className="text-xl font-semibold mb-3">
         Apply Now
       </h2>
 
       <div className="space-y-2 mb-5">
+
         <p>
-          <strong>Application Fee:</strong> $
-          {scholarship.applicationFees}
+          <strong>Application Fee:</strong>
+          ${scholarship.applicationFees}
         </p>
 
         <p>
-          <strong>Degree:</strong> {scholarship.degree}
+          <strong>Degree:</strong>
+          {scholarship.degree}
         </p>
 
         <p>
@@ -37,6 +97,7 @@ const ApplySection = ({ scholarship }) => {
             scholarship.applicationDeadline
           ).toLocaleDateString()}
         </p>
+
       </div>
 
       <button
@@ -45,6 +106,7 @@ const ApplySection = ({ scholarship }) => {
       >
         Apply & Pay
       </button>
+
     </div>
   );
 };
