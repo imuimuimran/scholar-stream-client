@@ -21,7 +21,7 @@ const PaymentHistory = () => {
   return (
     <div className="bg-base-100 p-6 rounded-xl shadow">
       <h2 className="text-2xl font-bold mb-6">
-        💳 Payment History
+        💳 Payment History 
       </h2>
 
       <div className="overflow-x-auto">

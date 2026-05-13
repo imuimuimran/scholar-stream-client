@@ -6,7 +6,7 @@ const Sidebar = () => {
 
   return (
     <div className="w-64 bg-base-100 shadow-lg hidden md:block">
-      <div className="p-4 text-xl font-bold text-primary">
+      <div className="p-4 text-2xl font-bold text-primary">
         <Link to="/">
           ScholarStream
         </Link>

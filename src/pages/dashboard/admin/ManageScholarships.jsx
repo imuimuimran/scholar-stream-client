@@ -16,7 +16,7 @@ const initialForm = {
   universityCountry: "",
   universityCity: "",
   universityWorldRank: "",
-  subjectCategory: "",
+  subjectCategory: "", 
   scholarshipCategory: "",
   degree: "",
   tuitionFees: "",

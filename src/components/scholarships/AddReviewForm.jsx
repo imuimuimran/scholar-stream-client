@@ -56,9 +56,9 @@ const AddReviewForm = ({ scholarshipId, universityName, }) => {
       rating: Number(reviewData.rating),
       comment: reviewData.comment,
 
-      reviewerName: user.displayName,
+      reviewerName: user.name,
       reviewerEmail: user.email,
-      reviewerImage: user.photoURL,
+      photoURL: user.photoURL,
 
       reviewDate: new Date(),
     });

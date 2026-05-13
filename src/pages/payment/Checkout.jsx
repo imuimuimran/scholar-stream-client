@@ -130,7 +130,7 @@ const Checkout = () => {
 
           <p>
             <strong>Subject:</strong>{" "}
-            {application.subject}
+            {application.subjectCategory}
           </p>
 
           <p>

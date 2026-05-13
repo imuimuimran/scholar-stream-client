@@ -13,7 +13,7 @@ import AllScholarships from "../pages/scholarships/AllScholarships";
 import ScholarshipDetails from "../pages/scholarships/ScholarshipDetails";
 
 import DashboardHome from "../pages/dashboard/DashboardHome";
-import ManageUsers from "../pages/dashboard/ManageUsers";
+import ManageUsers from "../pages/dashboard/admin/ManageUsers";
 
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
@@ -22,15 +22,13 @@ import Checkout from "../pages/payment/Checkout";
 
 import PaymentSuccess from "../pages/payment/PaymentSuccess";
 import PaymentFailed from "../pages/payment/PaymentFailed";
-import PaymentAccept from "../pages/PaymentAccept";
-import PaymentCancel from "../pages/PaymentCancel";
 
-// import ApplyScholarship from "../pages/dashboard/student/ApplyScholarship";
 import MyApplications from "../pages/dashboard/student/MyApplications";
 import Analytics from "../pages/dashboard/Analytics";
 
 import ManageScholarships from "../pages/dashboard/admin/ManageScholarships";
 import ManageApplications from "../pages/dashboard/moderator/ManageApplications";
+import AllReviews from "../pages/dashboard/moderator/AllReviews";
 import MyReviews from "../pages/dashboard/student/MyReviews";
 import PaymentHistory from "../pages/dashboard/student/PaymentHistory";
 
@@ -87,13 +85,18 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "all-reviews",
+        element: (
+          <RoleRoute allowedRoles={["Moderator", "Admin"]}>
+            <AllReviews />
+          </RoleRoute>
+        ),
+      },
+      {
         path: "applications",
         element: <MyApplications />
       },
-      // {
-      //   path: "apply/:id",
-      //   element: <ApplyScholarship />,
-      // },
+
       {
         path: "analytics",
         element: (
@@ -126,18 +129,6 @@ const router = createBrowserRouter([
   //   element: <Error404 />,
   // },
 
-  {
-    path: "payment-accept",
-    element: <PaymentAccept />,
-  },
-  {
-    path: "payment-cancel",
-    element: <PaymentCancel />,
-  },
-  {
-    path: "checkout",
-    element: <PrivateRoute><Checkout /></PrivateRoute>
-  },
   {
     path: "payment-success",
     element: <PaymentSuccess />

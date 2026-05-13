@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "../../../api/axiosSecure";
 
@@ -22,7 +23,9 @@ const ManageUsers = () => {
             await axios.patch(`/api/users/${id}/role`, { role });
         },
         onSuccess: () => {
-            queryClient.invalidateQueries(["users"]);
+            queryClient.invalidateQueries({
+                queryKey: ["users"],
+            });
         },
     });
 
@@ -32,7 +35,9 @@ const ManageUsers = () => {
             await axios.delete(`/api/users/${id}`);
         },
         onSuccess: () => {
-            queryClient.invalidateQueries(["users"]);
+            queryClient.invalidateQueries({
+                queryKey: ["users"],
+            });
         },
     });
 
@@ -104,7 +109,7 @@ const ManageUsers = () => {
                                 <td>
                                     <button
                                         onClick={() => deleteMutation.mutate(user._id)}
-                                        className="btn btn-xs btn-error text-white"
+                                        className="btn btn-xs btn-error text-red"
                                     >
                                         Delete
                                     </button>

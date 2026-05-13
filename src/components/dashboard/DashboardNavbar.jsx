@@ -1,22 +1,41 @@
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 const DashboardNavbar = () => {
-  const { user, logout } = useAuth();
+  const { user, dbUser, logout } = useAuth();
+
+  const navLinkClass = ({ isActive }) =>
+    isActive ? "text-primary font-semibold" : "hover:text-primary";
 
   return (
     <div className="navbar bg-base-100 shadow px-4">
       
       <div className="flex-1">
         <h1 className="text-xl font-bold text-primary">
-          ScholarStream Dashboard
+          ScholarStream {dbUser?.role} Dashboard 
         </h1>
       </div>
 
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 gap-4">
+          <li>
+            <NavLink to="/" className={navLinkClass}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/scholarships" className={navLinkClass}>
+              All Scholarships
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+
       <div className="flex-none gap-4">
-        <div className="text-right hidden md:block">
+        {/* <div className="text-right hidden md:block">
           <p className="font-semibold">{user?.displayName}</p>
           <p className="text-xs opacity-60">{user?.email}</p>
-        </div>
+        </div> */}
 
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">

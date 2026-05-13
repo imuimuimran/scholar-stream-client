@@ -22,11 +22,17 @@ const ApplySection = ({ scholarship }) => {
       const applicationData = {
         scholarshipId: scholarship._id,
 
-        userName: user.displayName,
+        scholarshipName:
+          scholarship.scholarshipName,
+
+        name: user.displayName,
         userEmail: user.email,
 
         universityName:
           scholarship.universityName,
+
+        subjectCategory:
+          scholarship.subjectCategory,
 
         scholarshipCategory:
           scholarship.scholarshipCategory,

@@ -39,7 +39,7 @@ const ScholarshipInfo = ({ scholarship }) => {
           </p>
 
           <p>
-            Subject: {scholarship.subjectCategory}
+            Subject: {scholarship.subjectCategory} 
           </p>
 
           <p>

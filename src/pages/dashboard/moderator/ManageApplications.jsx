@@ -22,7 +22,10 @@ const ManageApplications = () => {
     mutationFn: async ({ id, status }) => {
       await axios.patch(`/api/applications/${id}/status`, { status });
     },
-    onSuccess: () => queryClient.invalidateQueries(["applications"]),
+
+    onSuccess: () => queryClient.invalidateQueries({
+      queryKey: ["applications"],
+    }),
   });
 
   /* ================= FEEDBACK ================= */
@@ -33,8 +36,10 @@ const ManageApplications = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["applications"]);
-      setSelectedApp(null);
+      queryClient.invalidateQueries({
+        queryKey: ["applications"],
+      }),
+        setSelectedApp(null);
     },
   });
 
@@ -67,7 +72,7 @@ const ManageApplications = () => {
                 <td>{app.universityName}</td>
 
                 <td>
-                  <span className="badge">{app.status}</span>
+                  <span className="badge">{app.applicationStatus}</span>
                 </td>
 
                 <td>
@@ -88,7 +93,7 @@ const ManageApplications = () => {
                   {/* STATUS */}
                   <select
                     className="select select-xs"
-                    value={app.status}
+                    value={app.applicationStatus}
                     onChange={(e) =>
                       statusMutation.mutate({
                         id: app._id,

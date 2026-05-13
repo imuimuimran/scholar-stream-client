@@ -77,8 +77,11 @@ const AuthProvider = ({ children }) => {
 
     await updateProfile(result.user, {
       displayName: name,
-      photoURL,
+      photoURL: photoURL,
     });
+
+    // refresh firebase user
+    await result.user.reload();
 
     return result;
   };

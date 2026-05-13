@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../../../api/axiosSecure";
 import { useAuth } from "../../../providers/AuthProvider";
-import ApplicationRow from "./ApplicationRow";
+import ApplicationRow from "./ApplicationRow"; 
 
 const MyApplications = () => {
   const { user } = useAuth();

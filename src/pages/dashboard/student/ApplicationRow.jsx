@@ -7,9 +7,9 @@ const ApplicationRow = ({ app, refetch }) => {
   const {
     _id,
     universityName,
-    subject,
+    subjectCategory,
     applicationFees,
-    status,
+    applicationStatus,
     paymentStatus,
     feedback,
     scholarshipId,
@@ -29,12 +29,12 @@ const ApplicationRow = ({ app, refetch }) => {
     <tr>
       <td>{universityName}</td>
 
-      <td>{subject}</td>
+      <td>{subjectCategory}</td>
 
       <td>${applicationFees}</td>
 
       <td>
-        <span className="badge badge-info">{status}</span>
+        <span className="badge badge-info">{applicationStatus}</span> 
       </td>
 
       <td>

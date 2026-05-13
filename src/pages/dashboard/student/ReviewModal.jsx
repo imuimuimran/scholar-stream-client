@@ -37,7 +37,7 @@ const ReviewModal = ({ application, onClose }) => {
       universityName: application.universityName,
 
       reviewerName: user.displayName,
-      reviewerImage: user.photoURL,
+      photoURL: user.photoURL,
       reviewerEmail: user.email,
 
       rating,

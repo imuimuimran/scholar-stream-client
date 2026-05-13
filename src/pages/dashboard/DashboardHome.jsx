@@ -3,7 +3,7 @@ import axiosSecure from "../../api/axiosSecure";
 import { useAuth } from "../../providers/AuthProvider";
 
 const DashboardHome = () => {
-  const { dbUser, loading } = useAuth();
+  const { user, dbUser, loading } = useAuth();
 
   const isAdmin = dbUser?.role === "Admin";
 
@@ -33,9 +33,9 @@ const DashboardHome = () => {
         <h2 className="text-2xl font-bold">
           Welcome {dbUser?.name}
         </h2>
-
-        <p className="text-gray-500 mt-2">
-          Student Dashboard
+        <p className="text-xl opacity-60">Email: {user?.email}</p>
+        <p className="text-gray-500 text-xl mt-2">
+          {dbUser?.role} Dashboard
         </p>
       </div>
     );

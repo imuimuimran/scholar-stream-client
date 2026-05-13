@@ -53,7 +53,7 @@ const ReviewList = ({ scholarshipId }) => {
 
               <img
                 src={
-                  review.reviewerImage ||
+                  review.photoURL ||
                   "https://i.ibb.co/4pDNDk1/avatar.png"
                 }
                 alt=""
