@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosSecure";
 
-const LIMIT = 6;
+const LIMIT = 9;
 
 const AllScholarships = () => {
   const [page, setPage] = useState(1);

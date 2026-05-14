@@ -247,7 +247,7 @@ const Home = () => {
               animate={{ x: ["0%", "-100%"] }}
               transition={{
                 repeat: Infinity,
-                duration: 25,
+                duration: 15,
                 ease: "linear",
               }}
             >
