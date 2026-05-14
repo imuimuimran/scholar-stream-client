@@ -110,7 +110,7 @@ const ApplySection = ({ scholarship }) => {
         onClick={handleApply}
         className="btn btn-primary"
       >
-        Apply & Pay
+        Apply for Scholarship
       </button>
 
     </div>

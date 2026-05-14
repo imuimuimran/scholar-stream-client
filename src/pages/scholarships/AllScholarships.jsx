@@ -51,7 +51,7 @@ const AllScholarships = () => {
   return (
     <section>
       {/* ================= HEADER ================= */}
-      <h1 className="text-3xl font-bold mb-6 text-primary">
+      <h1 className="text-3xl text-center font-bold mb-6 text-primary">
         All Scholarships
       </h1>
 
@@ -129,20 +129,20 @@ const AllScholarships = () => {
             </figure>
 
             <div className="card-body">
-              <h2 className="card-title">{sch.scholarshipName}</h2>
+              <h2 className="card-title text-primary font-bold">{sch.scholarshipName}</h2>
 
-              <p className="text-sm opacity-70">{sch.universityName}</p>
+              <p className="font-medium text-primary">{sch.universityName}</p>
 
               <div className="text-sm mt-2 space-y-1">
-                <p>{sch.universityCountry}</p>
-                <p>{sch.scholarshipCategory}</p>
+                <p>Country: {sch.universityCountry}</p>
+                <p>Category: {sch.scholarshipCategory}</p>
                 <p>Fee: ${sch.applicationFees}</p>
               </div>
 
               <div className="card-actions justify-end mt-4">
                 <Link
                   to={`/scholarships/${sch._id}`}
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-primary btn-sm text-white"
                 >
                   View Details
                 </Link>
