@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../../../api/axiosSecure";
+import TableSkeleton from "../../../components/shared/TableSkeleton";
 
 const PaymentHistory = () => {
   const { data, isLoading } = useQuery({
@@ -10,18 +11,22 @@ const PaymentHistory = () => {
     },
   });
 
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center py-20">
+  //       <span className="loading loading-spinner loading-lg"></span>
+  //     </div>
+  //   );
+  // }
+
   if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
+    return <TableSkeleton />;
   }
 
   return (
     <div className="bg-base-100 p-6 rounded-xl shadow">
       <h2 className="text-2xl font-bold mb-6">
-        💳 Payment History 
+        💳 Payment History
       </h2>
 
       <div className="overflow-x-auto">

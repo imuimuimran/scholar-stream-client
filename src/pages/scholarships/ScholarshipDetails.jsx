@@ -7,6 +7,8 @@ import ApplySection from "../../components/scholarships/ApplySection";
 import ReviewList from "../../components/scholarships/ReviewList";
 import AddReviewForm from "../../components/scholarships/AddReviewForm";
 
+import DetailsSkeleton from "../../components/shared/DetailsSkeleton";
+
 const ScholarshipDetails = () => {
   const { id } = useParams();
 
@@ -18,7 +20,11 @@ const ScholarshipDetails = () => {
     },
   });
 
-  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+  // if (isLoading) return <div className="text-center py-20">Loading...</div>;
+
+  if (isLoading) {
+    return <DetailsSkeleton />;
+  }
 
   if (!scholarship)
     return <div className="text-center py-20">Scholarship not found</div>;

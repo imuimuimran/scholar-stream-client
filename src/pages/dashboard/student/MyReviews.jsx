@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "../../../api/axiosSecure";
 import { useState } from "react";
+import TableSkeleton from "../../../components/shared/TableSkeleton";
 
 const MyReviews = () => {
   const queryClient = useQueryClient();
@@ -43,8 +44,12 @@ const MyReviews = () => {
     },
   });
 
+  // if (isLoading) {
+  //   return <span className="loading loading-spinner"></span>;
+  // }
+
   if (isLoading) {
-    return <span className="loading loading-spinner"></span>;
+    return <TableSkeleton />;
   }
 
   return (

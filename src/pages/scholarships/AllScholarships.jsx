@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosSecure";
+import ScholarshipCardSkeleton from "../../components/shared/ScholarshipCardSkeleton";
 
 const LIMIT = 9;
 
@@ -40,10 +41,20 @@ const AllScholarships = () => {
   /* ======================
      Loading
   ====================== */
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center py-20">
+  //       <span className="loading loading-spinner loading-lg text-primary"></span>
+  //     </div>
+  //   );
+  // }
+
   if (isLoading) {
     return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+      <div className="grid md:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <ScholarshipCardSkeleton key={i} />
+        ))}
       </div>
     );
   }

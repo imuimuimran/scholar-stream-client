@@ -34,13 +34,15 @@ import PaymentHistory from "../pages/dashboard/student/PaymentHistory";
 
 import Profile from "../pages/dashboard/Profile";
 
+import Error404 from "../pages/Error404";
+
 
 const router = createBrowserRouter([
   /* ================= MAIN SITE ================= */
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <div>Page Not Found</div>,
+    errorElement: <Error404 />,
     children: [
       { index: true, element: <Home /> },
       { path: "scholarships", element: <AllScholarships /> },
@@ -124,10 +126,10 @@ const router = createBrowserRouter([
     ],
   },
   /* ================= 404 ================= */
-  // {
-  //   path: "*",
-  //   element: <Error404 />,
-  // },
+  {
+    path: "*",
+    element: <Error404 />,
+  },
 
   {
     path: "payment-success",

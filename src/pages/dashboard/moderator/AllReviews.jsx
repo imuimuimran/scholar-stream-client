@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import axios from "../../../api/axiosSecure";
+import TableSkeleton from "../../../components/shared/TableSkeleton";
 
 const AllReviews = () => {
   const queryClient = useQueryClient();
@@ -36,12 +37,16 @@ const AllReviews = () => {
   });
 
   /* ================= LOADING ================= */
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center py-20">
+  //       <span className="loading loading-spinner loading-lg"></span>
+  //     </div>
+  //   );
+  // }
+
   if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
+    return <TableSkeleton />;
   }
 
   return (

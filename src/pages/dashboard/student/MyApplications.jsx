@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../../../api/axiosSecure";
 import { useAuth } from "../../../providers/AuthProvider";
-import ApplicationRow from "./ApplicationRow"; 
+import ApplicationRow from "./ApplicationRow";
+import TableSkeleton from "../../../components/shared/TableSkeleton";
 
 const MyApplications = () => {
   const { user } = useAuth();
@@ -17,12 +18,16 @@ const MyApplications = () => {
     },
   });
 
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center py-20">
+  //       <span className="loading loading-spinner loading-lg text-primary"></span>
+  //     </div>
+  //   );
+  // }
+
   if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <TableSkeleton />;
   }
 
   return (
