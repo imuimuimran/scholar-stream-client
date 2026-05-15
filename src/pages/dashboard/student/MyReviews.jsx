@@ -56,6 +56,7 @@ const MyReviews = () => {
           <thead>
             <tr>
               <th>Scholarship</th>
+              <th>University</th>
               <th>Rating</th>
               <th>Comment</th>
               <th>Date</th>
@@ -67,6 +68,7 @@ const MyReviews = () => {
             {reviews.map((rev) => (
               <tr key={rev._id}>
                 <td>{rev.scholarshipName}</td>
+                <td>{rev.universityName}</td>
                 <td>⭐ {rev.rating}</td>
                 <td>{rev.comment}</td>
                 <td>{new Date(rev.createdAt).toLocaleDateString()}</td>

@@ -70,7 +70,12 @@ const Checkout = () => {
     if (error) {
       console.log(error);
 
-      navigate("/payment-failed");
+      navigate("/payment-failed", {
+        state: {
+          scholarshipName: application?.scholarshipName,
+          error: error.message,
+        },
+      });
 
       return;
     }

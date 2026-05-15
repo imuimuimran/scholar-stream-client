@@ -17,7 +17,7 @@ const Navbar = () => {
       </div>
 
       {/* Center */}
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex mr-3">
         <ul className="menu menu-horizontal px-1 gap-4">
           <li>
             <NavLink to="/" className={navLinkClass}>

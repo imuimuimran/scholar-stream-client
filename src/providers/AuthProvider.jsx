@@ -27,7 +27,10 @@ const AuthProvider = ({ children }) => {
 
     const res = await axios.post(
       `${import.meta.env.VITE_SERVER_URL}/api/auth/firebase`,
-      {},
+      {
+        name: firebaseUser.displayName,
+        photoURL: firebaseUser.photoURL,
+      },
       {
         headers: {
           Authorization: `Bearer ${idToken}`,
@@ -83,7 +86,15 @@ const AuthProvider = ({ children }) => {
     // refresh firebase user
     await result.user.reload();
 
-    return result;
+    // return result;
+
+    /* GET FRESH USER */
+    const updatedUser = auth.currentUser;
+
+    /* FORCE REFRESH TOKEN */
+    await updatedUser.getIdToken(true);
+
+    return updatedUser;
   };
 
   const googleLogin = () => signInWithPopup(auth, provider);
