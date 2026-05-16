@@ -22,14 +22,19 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const getServerToken = async (firebaseUser) => {
-    // const idToken = await firebaseUser.getIdToken();
-    const idToken = await firebaseUser.getIdToken(true);
+
+    /* FORCE REFRESH TOKEN */
+    await firebaseUser.reload();
+
+    const currentUser = auth.currentUser;
+
+    const idToken = await currentUser.getIdToken(true);
 
     const res = await axios.post(
       `${import.meta.env.VITE_SERVER_URL}/api/auth/firebase`,
       {
-        name: firebaseUser.displayName,
-        photoURL: firebaseUser.photoURL,
+        name: currentUser?.displayName || "",
+        photoURL: currentUser?.photoURL || "",
       },
       {
         headers: {
@@ -39,6 +44,7 @@ const AuthProvider = ({ children }) => {
     );
 
     localStorage.setItem("access-token", res.data.token);
+
     setDbUser(res.data.user);
   };
 

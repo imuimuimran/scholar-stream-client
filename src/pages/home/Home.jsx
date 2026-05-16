@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "../../api/axiosSecure";
 
+import { MdMailOutline } from "react-icons/md";
+import { IoCallOutline, IoLocationOutline } from "react-icons/io5";
+
 const faqs = [
   {
     q: "How can I apply for a scholarship?",
@@ -369,16 +372,16 @@ const Home = () => {
 
             <div className="space-y-3">
 
-              <p>
-                📧 support@scholarstream.com
+              <p className="flex items-center gap-4">
+                <MdMailOutline size={20} /> support@scholarstream.com
               </p>
 
-              <p>
-                📞 +880 1234-567890
+              <p className="flex items-center gap-4">
+                <IoCallOutline size={20} /> +880 1234-567890
               </p>
 
-              <p>
-                📍 Dhaka, Bangladesh
+              <p className="flex items-center gap-4">
+                <IoLocationOutline size={20} /> Dhaka, Bangladesh
               </p>
 
             </div>

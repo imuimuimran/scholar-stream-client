@@ -4,28 +4,72 @@ import { useAuth } from "../../providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Register() {
-  const { signup, googleLogin } = useAuth(); // firebase login functions
+
+  const { signup, googleLogin } = useAuth();
+
   const [form, setForm] = useState({
     name: "",
     photoURL: "",
     email: "",
     password: "",
   });
+
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
+  /* ===================================================
+      REGISTER SUBMIT
+  =================================================== */
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    try {
-      setLoading(true);
+    const { password } = form;
 
-      // Firebase email/password signup
+    /* ================= PASSWORD VALIDATION ================= */
+
+    // Minimum 6 characters
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return;
+    }
+
+    // At least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      alert(
+        "Password must contain at least one uppercase letter."
+      );
+      return;
+    }
+
+    // At least one number
+    if (!/[0-9]/.test(password)) {
+      alert(
+        "Password must contain at least one number."
+      );
+      return;
+    }
+
+    // At least one special character
+    if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) {
+      alert(
+        "Password must contain at least one special character."
+      );
+      return;
+    }
+
+    try {
+
+      setLoading(true);
 
       await signup(
         form.email,
@@ -34,33 +78,68 @@ export default function Register() {
         form.photoURL
       );
 
-      // redirect after successful register
-      navigate("/dashboard", { replace: true });
+      navigate("/dashboard", {
+        replace: true,
+      });
+
     } catch (err) {
-      alert(err.message || "Registration failed");
+
+      alert(
+        err.message || "Registration failed"
+      );
+
     } finally {
+
       setLoading(false);
+
     }
   };
 
+  /* ===================================================
+      GOOGLE LOGIN
+  =================================================== */
+
   const handleGoogleLogin = async () => {
+
     try {
+
       setLoading(true);
+
       await googleLogin();
-      navigate("/dashboard", { replace: true });
+
+      navigate("/dashboard", {
+        replace: true,
+      });
+
     } catch (err) {
-      alert(err.message || "Google login failed");
+
+      alert(
+        err.message || "Google login failed"
+      );
+
     } finally {
+
       setLoading(false);
+
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Register</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="bg-white p-8 rounded-lg shadow w-full max-w-md">
+
+        <h2 className="text-2xl font-semibold mb-6 text-center">
+          Register
+        </h2>
+
+        {/* ================= FORM ================= */}
+
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
+
           <input
             type="text"
             name="name"
@@ -103,30 +182,55 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 text-white py-2 rounded"
+            className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
           >
-            {loading ? "Registering..." : "Register"}
+            {loading
+              ? "Registering..."
+              : "Register"}
           </button>
+
         </form>
 
-        <div className="divider">OR</div>
+        {/* ================= DIVIDER ================= */}
+
+        <div className="divider">
+          OR
+        </div>
+
+        {/* ================= GOOGLE LOGIN ================= */}
 
         <button
           onClick={handleGoogleLogin}
           disabled={loading}
           className="btn btn-outline w-full flex items-center gap-2"
         >
+
           <FcGoogle size={20} />
+
           Continue with Google
+
         </button>
 
+        {/* ================= LOGIN LINK ================= */}
+
         <p className="text-sm mt-4 text-center">
+
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 underline">
+
+          <Link
+            to="/login"
+            className="text-blue-600 underline"
+          >
             Login
           </Link>
+
         </p>
+
       </div>
+
     </div>
   );
 }
+
+
+

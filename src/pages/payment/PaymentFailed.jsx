@@ -42,7 +42,7 @@ const PaymentFailed = () => {
 
           <Link
             to="/dashboard/applications"
-            className="btn btn-primary"
+            className="btn btn-primary text-white"
           >
             Return to Dashboard
           </Link>

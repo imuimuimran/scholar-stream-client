@@ -146,6 +146,7 @@ const AllScholarships = () => {
 
               <div className="text-sm mt-2 space-y-1">
                 <p>Country: {sch.universityCountry}</p>
+                <p>Degree: {sch.degree}</p>
                 <p>Category: {sch.scholarshipCategory}</p>
                 <p>Fee: ${sch.applicationFees}</p>
               </div>

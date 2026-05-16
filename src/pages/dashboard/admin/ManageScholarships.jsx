@@ -242,6 +242,7 @@ const ManageScholarships = () => {
           <thead>
             <tr>
               <th>University</th>
+              <th>Scholarship</th>
               <th>Country</th>
               <th>Category</th>
               <th>Degree</th>
@@ -254,6 +255,8 @@ const ManageScholarships = () => {
             {scholarships.map((sch) => (
               <tr key={sch._id}>
                 <td>{sch.universityName}</td>
+
+                <td>{sch.scholarshipName}</td>
 
                 <td>{sch.universityCountry}</td>
 

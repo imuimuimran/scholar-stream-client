@@ -19,9 +19,7 @@ const Footer = () => {
           {/* BRAND */}
           <div className="text-center md:text-left">
             <h2 className="text-3xl font-extrabold text-primary">
-              <Link to="/">
-                ScholarStream
-              </Link>
+              <a href="#">ScholarStream</a>
             </h2>
 
             <p className="mt-3 max-w-md opacity-80">

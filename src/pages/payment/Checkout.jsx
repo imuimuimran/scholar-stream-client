@@ -87,7 +87,28 @@ const Checkout = () => {
           paymentStatus: "paid",
         });
 
-        navigate("/payment-success");
+        navigate("/payment-success", {
+          state: {
+            scholarshipName:
+              application.scholarshipName,
+
+            universityName:
+              application.universityName,
+
+            subject:
+              application.subject,
+
+            degree:
+              application.degree,
+
+            amount: total,
+
+            transactionId:
+              paymentIntent.id,
+          },
+        });
+
+
       } catch (err) {
         console.log(err);
       }
