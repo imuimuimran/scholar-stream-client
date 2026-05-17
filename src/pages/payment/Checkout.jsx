@@ -40,7 +40,8 @@ const Checkout = () => {
 
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        console.error(error);
 
         setLoading(false);
       }
@@ -68,7 +69,8 @@ const Checkout = () => {
       });
 
     if (error) {
-      console.log(error);
+      // console.log(error);
+      console.error(error);
 
       navigate("/payment-failed", {
         state: {
@@ -109,8 +111,9 @@ const Checkout = () => {
         });
 
 
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        // console.log(err);
+        console.error(error);
       }
     }
   };

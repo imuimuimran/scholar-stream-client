@@ -46,7 +46,8 @@ const ApplicationRow = ({ app, refetch }) => {
 
     } catch (error) {
 
-      console.log(error);
+      // console.log(error);
+      console.error(error);
 
       alert("Failed to delete application");
     }

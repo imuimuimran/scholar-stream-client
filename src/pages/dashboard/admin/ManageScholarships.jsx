@@ -79,7 +79,8 @@ const ManageScholarships = () => {
     },
 
     onError: (err) => {
-      console.log(err.response?.data || err.message);
+      // console.log(err.response?.data || err.message);
+      console.error(err.response?.data || err.message);
       alert("Create failed");
     },
   });
