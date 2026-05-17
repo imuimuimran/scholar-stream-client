@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 
 
 export default function Login() {
-  const { login, googleLogin } = useAuth();
+  const { login, googleLogin, resetPassword } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -49,6 +49,29 @@ export default function Login() {
     }
   };
 
+  const handleForgotPassword = async () => {
+
+    if (!form.email) {
+      alert("Please enter your email first");
+      return;
+    }
+
+    try {
+
+      await resetPassword(form.email);
+
+      alert(
+        "Password reset email sent. Check your inbox."
+      );
+
+    } catch (err) {
+
+      alert(
+        err.message || "Failed to send reset email"
+      );
+    }
+  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -75,6 +98,16 @@ export default function Login() {
             className="w-full border p-2 rounded"
             required
           />
+
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-sm text-primary hover:underline"
+            >
+              Forgot Password?
+            </button>
+          </div>
 
           <button
             type="submit"

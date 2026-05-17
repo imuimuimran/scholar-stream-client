@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   updateProfile,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { createContext, useEffect, useState, useContext } from "react";
 // import axios from "../api/axiosSecure";
@@ -105,6 +106,10 @@ const AuthProvider = ({ children }) => {
 
   const googleLogin = () => signInWithPopup(auth, provider);
 
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
   const logout = () => {
     localStorage.removeItem("access-token");
     return signOut(auth);
@@ -119,6 +124,7 @@ const AuthProvider = ({ children }) => {
     signup,
     googleLogin,
     logout,
+    resetPassword,
   };
 
   return (
