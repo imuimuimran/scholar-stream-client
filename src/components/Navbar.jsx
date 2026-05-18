@@ -140,29 +140,53 @@ const Navbar = () => {
             {/* DROPDOWN */}
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="
+              menu menu-sm dropdown-content
+              mt-3 z-[1]
+              p-3
+              shadow
+              bg-base-100
+              rounded-box
+              w-64
+              space-y-1
+              "
             >
+              {/* USER INFO */}
+              <li className="pointer-events-none">
+                <div className="flex flex-col items-start px-2 py-1 max-w-full">
 
-              <li className="px-2 py-1 pointer-events-none">
-                <span className="font-semibold">
-                  {user.displayName || "User"}
-                </span>
+                  <span className="font-semibold text-sm break-words">
+                    {user?.displayName || "User"}
+                  </span>
+
+                  <span className="text-xs text-gray-500 break-all">
+                    {user?.email}
+                  </span>
+
+                </div>
               </li>
 
               <div className="divider my-1"></div>
 
+              {/* DASHBOARD */}
               <li>
-                <Link to="/dashboard">
+                <Link
+                  to="/dashboard"
+                  className="rounded-lg"
+                >
                   Dashboard
                 </Link>
               </li>
 
+              {/* LOGOUT */}
               <li>
-                <button onClick={logout}>
+                <button
+                  onClick={logout}
+                  className="rounded-lg text-error"
+                >
                   Logout
                 </button>
               </li>
-
             </ul>
 
           </div>

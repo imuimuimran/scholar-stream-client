@@ -15,7 +15,7 @@ Students can browse scholarships, apply online, pay application fees securely, t
 
 ## 🚀 Live URL
 
-🔗 Live Site: https://scholar-stream-e2d14.web.app/
+🔗 Live Site: https://scholar-stream-e2d14.web.app
 
 ---
 
