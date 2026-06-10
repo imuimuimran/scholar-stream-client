@@ -20,7 +20,7 @@ const ScholarshipInfo = ({ scholarship }) => {
           {scholarship.universityName}
         </p>
 
-        <div className="grid md:grid-cols-4 gap-4 mt-4 text-sm">
+        <div className="grid md:grid-cols-3 gap-4 mt-4 text-sm">
 
           <p>
             Country: {scholarship.universityCountry}

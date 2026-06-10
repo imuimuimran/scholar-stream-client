@@ -51,7 +51,7 @@ const AllScholarships = () => {
 
   if (isLoading) {
     return (
-      <div className="grid md:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[...Array(6)].map((_, i) => (
           <ScholarshipCardSkeleton key={i} />
         ))}
