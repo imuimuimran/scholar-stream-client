@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "../../api/axiosSecure";
 import ScholarshipCardSkeleton from "../../components/shared/ScholarshipCardSkeleton";
 
-const LIMIT = 9;
+const LIMIT = 12;
 
 const AllScholarships = () => {
   const [page, setPage] = useState(1);
@@ -125,7 +125,7 @@ const AllScholarships = () => {
       </div>
 
       {/* ================= CARDS ================= */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {scholarships.map((sch) => (
           <div
             key={sch._id}

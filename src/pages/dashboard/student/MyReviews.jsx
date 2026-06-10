@@ -106,7 +106,7 @@ const MyReviews = () => {
       {/* ================= MODAL ================= */}
       {editReview && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-xl w-[400px]">
+          <div className="bg-base-100 p-6 rounded-xl w-[400px]">
 
             <h3 className="font-bold mb-2">Edit Review</h3>
 

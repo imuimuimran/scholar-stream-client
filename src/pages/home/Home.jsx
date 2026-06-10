@@ -172,7 +172,7 @@ const Home = () => {
 
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {scholarships.map((scholarship) => (
 
@@ -354,7 +354,7 @@ const Home = () => {
           CONTACT SECTION
       =================================================== */}
 
-      <section className="bg-base-200 rounded-3xl p-10 md:p-16">
+      <section id="contact" className="bg-base-200 rounded-3xl p-10 md:p-16">
 
         <div className="grid md:grid-cols-2 gap-10 items-center">
 

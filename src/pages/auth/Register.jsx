@@ -125,9 +125,9 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
 
-      <div className="bg-white p-8 rounded-lg shadow w-full max-w-md">
+      <div className="bg-base-100 p-8 rounded-lg shadow-xl w-full max-w-md">
 
         <h2 className="text-2xl font-semibold mb-6 text-center">
           Register
@@ -146,7 +146,7 @@ export default function Register() {
             placeholder="Full Name"
             value={form.name}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="input input-bordered w-full"
             required
           />
 
@@ -156,7 +156,7 @@ export default function Register() {
             placeholder="Photo URL"
             value={form.photoURL}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="input input-bordered w-full"
           />
 
           <input
@@ -165,7 +165,7 @@ export default function Register() {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="input input-bordered w-full"
             required
           />
 
@@ -175,14 +175,25 @@ export default function Register() {
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="input input-bordered w-full"
             required
           />
+
+          <p className="text-xs opacity-70">
+            Password must contain:
+          </p>
+
+          <ul className="text-xs opacity-70 list-disc ml-5">
+            <li>Minimum 6 characters</li>
+            <li>One uppercase letter</li>
+            <li>One number</li>
+            <li>One special character</li>
+          </ul>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+            className="btn btn-primary w-full"
           >
             {loading
               ? "Registering..."
@@ -219,7 +230,7 @@ export default function Register() {
 
           <Link
             to="/login"
-            className="text-blue-600 underline"
+            className="link link-primary"
           >
             Login
           </Link>

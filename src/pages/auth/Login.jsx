@@ -74,9 +74,9 @@ export default function Login() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
+      <div className="bg-base-100 p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -85,7 +85,7 @@ export default function Login() {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="input input-bordered w-full"
             required
           />
 
@@ -95,9 +95,11 @@ export default function Login() {
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="input input-bordered w-full"
             required
           />
+
+          
 
           <div className="text-right">
             <button
@@ -112,7 +114,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded"
+            className="btn btn-primary w-full"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -130,7 +132,7 @@ export default function Login() {
 
         <p className="text-sm mt-4 text-center">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 underline">
+          <Link to="/register" className="link link-primary">
             Register
           </Link>
         </p>

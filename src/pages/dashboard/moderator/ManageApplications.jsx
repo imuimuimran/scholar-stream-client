@@ -189,9 +189,9 @@ const ManageApplications = () => {
 
       {/* ================= MODAL ================= */}
       {selectedApp && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-base-200 flex items-center justify-center p-4">
 
-          <div className="bg-white w-full max-w-3xl rounded-2xl shadow-xl p-6 max-h-[90vh] overflow-y-auto">
+          <div className=" bg-base-100w-full max-w-3xl rounded-2xl shadow-xl p-6 max-h-[90vh] overflow-y-auto">
 
             {/* HEADER */}
             <div className="flex justify-between items-center mb-6">
