@@ -18,12 +18,30 @@ const Navbar = () => {
       </li>
 
       <li>
+        <Link
+          to="/#about"
+          className="hover:text-primary transition"
+        >
+          About
+        </Link>
+      </li>
+
+      <li>
         <NavLink
           to="/scholarships"
           className={navLinkClass}
         >
           All Scholarships
         </NavLink>
+      </li>
+
+      <li>
+        <Link
+          to="/#contact"
+          className="hover:text-primary transition"
+        >
+          Contact
+        </Link>
       </li>
 
       {user && (

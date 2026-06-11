@@ -57,6 +57,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      
     ],
   },
   /* ================= DASHBOARD ================= */
@@ -123,6 +124,7 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      
     ],
   },
   /* ================= 404 ================= */

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const { login, googleLogin, resetPassword } = useAuth();
@@ -13,6 +13,7 @@ export default function Login() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -89,7 +90,7 @@ export default function Login() {
             required
           />
 
-          <input
+          {/* <input
             type="password"
             name="password"
             placeholder="Password"
@@ -97,9 +98,36 @@ export default function Login() {
             onChange={handleChange}
             className="input input-bordered w-full"
             required
-          />
+          /> */}
 
-          
+
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+              required
+            />
+
+            <button
+              type="button"
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
+              className="absolute right-3 top-3"
+            >
+              {showPassword ? (
+                <FaEyeSlash />
+              ) : (
+                <FaEye />
+              )}
+            </button>
+          </div>
+
+
 
           <div className="text-right">
             <button

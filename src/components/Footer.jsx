@@ -106,7 +106,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="#contact"
+              href="#"
               className="hover:text-primary transition"
             >
               Contact
